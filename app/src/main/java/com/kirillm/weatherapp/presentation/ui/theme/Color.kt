@@ -1,4 +1,4 @@
-package com.kirillm.weatherapp.ui.theme
+package com.kirillm.weatherapp.presentation.ui.theme
 
 import androidx.compose.ui.graphics.Color
 
