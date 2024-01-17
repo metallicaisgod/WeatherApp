@@ -6,16 +6,18 @@ import com.arkivanov.mvikotlin.extensions.coroutines.labels
 import com.arkivanov.mvikotlin.extensions.coroutines.stateFlow
 import com.kirillm.weatherapp.domain.entity.City
 import com.kirillm.weatherapp.presentation.componentScope
+import dagger.assisted.Assisted
+import dagger.assisted.AssistedFactory
+import dagger.assisted.AssistedInject
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
-class DefaultDetailsComponent @Inject constructor(
-    private val city: City,
+class DefaultDetailsComponent @AssistedInject constructor(
     private val storeFactory: DetailsStoreFactory,
-    private val componentContext: ComponentContext,
-    private val onBackClick: () -> Unit,
+    @Assisted("city") private val city: City,
+    @Assisted("componentContext") private val componentContext: ComponentContext,
+    @Assisted("onBackClicked") private val onBackClicked: () -> Unit,
 ) : DetailsComponent, ComponentContext by componentContext {
 
     private val store = instanceKeeper.getStore { storeFactory.create(city) }
@@ -25,7 +27,7 @@ class DefaultDetailsComponent @Inject constructor(
         scope.launch {
             store.labels.collect {
                 when (it) {
-                    DetailsStore.Label.ClickBack -> onBackClick()
+                    DetailsStore.Label.ClickBack -> onBackClicked()
                 }
             }
         }
@@ -41,5 +43,15 @@ class DefaultDetailsComponent @Inject constructor(
 
     override fun onFavouriteClick() {
         store.accept(DetailsStore.Intent.ClickFavourite)
+    }
+
+    @AssistedFactory
+    interface Factory {
+
+        fun create(
+            @Assisted("city") city: City,
+            @Assisted("componentContext") componentContext: ComponentContext,
+            @Assisted("onBackClicked") onBackClicked: () -> Unit,
+        ): DefaultDetailsComponent
     }
 }

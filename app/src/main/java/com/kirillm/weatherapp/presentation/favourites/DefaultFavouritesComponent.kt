@@ -6,16 +6,19 @@ import com.arkivanov.mvikotlin.extensions.coroutines.labels
 import com.arkivanov.mvikotlin.extensions.coroutines.stateFlow
 import com.kirillm.weatherapp.domain.entity.City
 import com.kirillm.weatherapp.presentation.componentScope
+import dagger.assisted.Assisted
+import dagger.assisted.AssistedFactory
+import dagger.assisted.AssistedInject
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
-class DefaultFavouritesComponent @Inject constructor(
+class DefaultFavouritesComponent @AssistedInject constructor(
     private val storeFactory: FavouritesStoreFactory,
-    private val componentContext: ComponentContext,
-    private val onAddToFavouriteClick: () -> Unit,
-    private val onSearchClick: () -> Unit,
-    private val onFavouriteClick: (City) -> Unit
+    @Assisted("componentContext") private val componentContext: ComponentContext,
+    @Assisted("onAddToFavouriteClicked") private val onAddToFavouriteClicked: () -> Unit,
+    @Assisted("onSearchFieldClicked") private val onSearchFieldClicked: () -> Unit,
+    @Assisted("onFavouriteClicked") private val onFavouriteClicked: (City) -> Unit,
 ) : FavouritesComponent, ComponentContext by componentContext {
 
     private val store = instanceKeeper.getStore { storeFactory.create() }
@@ -23,22 +26,25 @@ class DefaultFavouritesComponent @Inject constructor(
 
     init {
         scope.launch {
-            store.labels.collect{
-                when(it) {
+            store.labels.collect {
+                when (it) {
                     FavouritesStore.Label.OnAddFavoriteClicked -> {
-                        onAddToFavouriteClick()
+                        onAddToFavouriteClicked()
                     }
+
                     is FavouritesStore.Label.OnFavouriteClicked -> {
-                        onFavouriteClick(it.city)
+                        onFavouriteClicked(it.city)
                     }
+
                     FavouritesStore.Label.OnSearchClicked -> {
-                        onSearchClick()
+                        onSearchFieldClicked()
                     }
                 }
             }
         }
     }
 
+    @OptIn(ExperimentalCoroutinesApi::class)
     override val model: StateFlow<FavouritesStore.State>
         get() = store.stateFlow
 
@@ -52,5 +58,16 @@ class DefaultFavouritesComponent @Inject constructor(
 
     override fun onCityClicked(city: City) {
         store.accept(FavouritesStore.Intent.OnFavouriteClicked(city))
+    }
+
+    @AssistedFactory
+    interface Factory {
+
+        fun create(
+            @Assisted("componentContext") componentContext: ComponentContext,
+            @Assisted("onAddToFavouriteClicked") onAddToFavouriteClicked: () -> Unit,
+            @Assisted("onSearchFieldClicked") onSearchFieldClicked: () -> Unit,
+            @Assisted("onFavouriteClicked") onFavouriteClicked: (City) -> Unit,
+        ): DefaultFavouritesComponent
     }
 }
