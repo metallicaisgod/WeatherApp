@@ -1,10 +1,10 @@
-package com.sumin.weatherapp.data.local.db
+package com.kirillm.weatherapp.data.local.db
 
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import com.sumin.weatherapp.data.local.model.CityDbModel
+import com.kirillm.weatherapp.data.local.model.CityDbModel
 import kotlinx.coroutines.flow.Flow
 
 @Dao
