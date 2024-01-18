@@ -38,6 +38,7 @@ import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.bumptech.glide.integration.compose.ExperimentalGlideComposeApi
@@ -196,7 +197,8 @@ fun AddFavouriteCard(
                 modifier = Modifier
                     .align(Alignment.CenterHorizontally),
                 text = stringResource(R.string.button_add_to_favourite),
-                style = MaterialTheme.typography.titleMedium
+                style = MaterialTheme.typography.titleMedium,
+                textAlign = TextAlign.Center
             )
         }
     }

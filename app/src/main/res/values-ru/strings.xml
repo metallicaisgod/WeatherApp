@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Погода</string>
+    <string name="button_add_to_favourite">Добавить в Избранное</string>
+    <string name="search">Поиск</string>
+    <string name="upcoming">Прогноз</string>
+    <string name="nothing_find">По Вашему запросу ничего не найдено</string>
+    <string name="something_went_wrong">Что-то пошло не так</string>
+</resources>
