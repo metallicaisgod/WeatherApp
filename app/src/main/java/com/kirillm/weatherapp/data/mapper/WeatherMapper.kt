@@ -17,9 +17,8 @@ fun WeatherDto.toEntity(): Weather = Weather(
     date = date.toCalendar()
 )
 
-fun WeatherForecastDto.toEntity() = Forecast(
-    currentWeather = current.toEntity(),
-    upcoming = forecastDto.forecastDay.drop(1).map { dayDto ->
+fun WeatherForecastDto.toEntity() =
+    forecastDto.forecastDay.drop(1).map { dayDto ->
         val dayWeatherDto = dayDto.dayWeatherDto
         Weather(
             tempC = dayWeatherDto.tempC,
@@ -28,7 +27,6 @@ fun WeatherForecastDto.toEntity() = Forecast(
             date = dayDto.date.toCalendar()
         )
     }
-)
 
 private fun Long.toCalendar() = Calendar.getInstance().apply {
     time = Date(this@toCalendar * 1000)

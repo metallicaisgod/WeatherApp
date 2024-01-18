@@ -83,6 +83,7 @@ dependencies {
 
     implementation(libs.retrofit.core)
     implementation(libs.retrofit.gson)
+    implementation(libs.retrofit.logging)
 
     implementation(libs.glide.compose)
 

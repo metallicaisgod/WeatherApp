@@ -1,5 +1,6 @@
 package com.kirillm.weatherapp.presentation.favourites
 
+import android.util.Log
 import com.arkivanov.mvikotlin.core.store.Reducer
 import com.arkivanov.mvikotlin.core.store.Store
 import com.arkivanov.mvikotlin.core.store.StoreFactory
@@ -147,6 +148,7 @@ class FavouritesStoreFactory @Inject constructor(
                     conditionIconUrl = weather.conditionUrl
                 ))
             } catch (e: Exception) {
+                Log.d("Forecast", e.message.toString())
                 dispatch(Msg.WeatherLoadingError(city.id))
             }
         }

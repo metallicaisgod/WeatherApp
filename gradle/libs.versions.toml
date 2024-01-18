@@ -15,6 +15,7 @@ dagger = "2.48"
 retrofit = "2.9.0"
 room = "2.6.1"
 glide = "1.0.0-beta01"
+okhttp3-logging = "4.9.3"
 
 [libraries]
 core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "core-ktx" }
@@ -36,6 +37,7 @@ retrofit-gson = { group = "com.squareup.retrofit2", name = "converter-gson", ver
 room-core = { group = "androidx.room", name = "room-ktx", version.ref = "room" }
 room-compiler = { group = "androidx.room", name = "room-compiler", version.ref = "room" }
 glide-compose = { group = "com.github.bumptech.glide", name = "compose", version.ref = "glide" }
+retrofit-logging = { group = "com.squareup.okhttp3", name = "logging-interceptor", version.ref = "okhttp3-logging" }
 
 ui = { group = "androidx.compose.ui", name = "ui" }
 ui-graphics = { group = "androidx.compose.ui", name = "ui-graphics" }
