@@ -1,7 +1,7 @@
 ## Информация
 
 Приложение показывает погоду на текущий день и на два дня вперед.
-Использовались библитеки MVIKotlin, Decompose, Retrofit, Dagger2, Room
+Использовались библитеки MVIKotlin, Decompose, Retrofit, Dagger2, Room,
 UI сделан на Jetpack Compose
 
 ## Инструкция по сборке проекта
